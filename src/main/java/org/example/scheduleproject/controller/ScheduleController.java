@@ -1,7 +1,6 @@
 package org.example.scheduleproject.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.scheduleproject.repository.ScheduleRepository;
 import org.example.scheduleproject.scheduledto.CreateScheduleRequestDto;
 import org.example.scheduleproject.scheduledto.ScheduleResponseDto;
 import org.example.scheduleproject.service.ScheduleService;
@@ -15,16 +14,16 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    @PostMapping("/schedule")
+    @PostMapping("/schedules")
     public ScheduleResponseDto createSchedule(
             @RequestBody CreateScheduleRequestDto createScheduleRequestDto
     ) {
         return scheduleService.createSchedule(createScheduleRequestDto);
     }
 
-    @GetMapping("/schedule")
+    @GetMapping("/schedules")
     public List<ScheduleResponseDto> findSchedules(
-            @RequestParam(name = "name", required = true) String name
+            @RequestParam(name = "name", required = false) String name
     ) {
         if( name == null ) {
             return this.scheduleService.findSchedules();

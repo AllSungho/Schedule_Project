@@ -31,12 +31,12 @@ public class ScheduleService {
 
     @Transactional(readOnly = true)
     public List<ScheduleResponseDto> findSchedules() {
-        List<Schedule> schedules =  scheduleRepository.findAll();
+        List<Schedule> schedules =  scheduleRepository.findAllByOrderByModifiedAtDesc();
         return schedules.stream().map(ScheduleResponseDto::new).toList();
     }
     @Transactional(readOnly = true)
     public List<ScheduleResponseDto> findSchedules(String name) {
-        List<Schedule> schedules =  scheduleRepository.findByName(name);
+        List<Schedule> schedules =  scheduleRepository.findScheduleByUserNameOrderByModifiedAtDesc(name);
         return schedules.stream().map(ScheduleResponseDto::new).toList();
     }
 }
