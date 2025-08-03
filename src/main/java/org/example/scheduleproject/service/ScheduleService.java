@@ -40,31 +40,21 @@ public class ScheduleService {
     }
 
     @Transactional
-    public void updateTitle(Long id, UpdateTitleRequestDto updateTitleRequestDto) {
+    public ScheduleResponseDto updateTitle(Long id, UpdateTitleRequestDto updateTitleRequestDto) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 id")
         );
         schedule.changeTitle(updateTitleRequestDto.getTitle());
-    }
-    @Transactional
-    public ScheduleResponseDto updateTitle(Long id) {
-        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 id")
-        );
+        scheduleRepository.saveAndFlush(schedule);
         return new ScheduleResponseDto(schedule);
     }
     @Transactional
-    public void updateName(Long id, UpdateNameRequestDto updateNameRequestDto) {
+    public ScheduleResponseDto updateName(Long id, UpdateNameRequestDto updateNameRequestDto) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 id")
         );
         schedule.changeTitle(updateNameRequestDto.getName());
-    }
-    @Transactional
-    public ScheduleResponseDto updateName(Long id) {
-        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 id")
-        );
+        scheduleRepository.saveAndFlush(schedule);
         return new ScheduleResponseDto(schedule);
     }
 
@@ -73,6 +63,8 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 id")
         );
-
+        String password = schedule.getPassword();
+        scheduleRepository.delete(schedule);
+        return new DeleteScheduleResponseDto(password);
     }
 }

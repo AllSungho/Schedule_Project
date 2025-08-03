@@ -8,7 +8,7 @@ public class DeleteScheduleResponseDto {
 
     private final String password;
 
-    public DeleteScheduleResponseDto(Schedule schedule) {
-        this.password = schedule.getPassword();
+    public DeleteScheduleResponseDto(String password) {
+        this.password = password;
     }
 }

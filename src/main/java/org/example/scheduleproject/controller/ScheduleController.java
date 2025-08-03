@@ -1,10 +1,7 @@
 package org.example.scheduleproject.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.scheduleproject.scheduledto.CreateScheduleRequestDto;
-import org.example.scheduleproject.scheduledto.ScheduleResponseDto;
-import org.example.scheduleproject.scheduledto.UpdateNameRequestDto;
-import org.example.scheduleproject.scheduledto.UpdateTitleRequestDto;
+import org.example.scheduleproject.scheduledto.*;
 import org.example.scheduleproject.service.ScheduleService;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,20 +32,25 @@ public class ScheduleController {
         }
     }
 
-    @PatchMapping("/schedules/{scheduleId}")
+    @PatchMapping("/schedules/{scheduleId}/titles")
     public ScheduleResponseDto updateTitle(
             @PathVariable Long scheduleId,
             @RequestBody UpdateTitleRequestDto updateTitleRequestDto
     ) {
-        this.scheduleService.updateTitle(scheduleId, updateTitleRequestDto);
-        return this.scheduleService.updateTitle(scheduleId);
+        return this.scheduleService.updateTitle(scheduleId, updateTitleRequestDto);
     }
-    @PatchMapping("/schedules/{scheduleId}")
+    @PatchMapping("/schedules/{scheduleId}/names")
     public ScheduleResponseDto updateName(
             @PathVariable Long scheduleId,
             @RequestBody UpdateNameRequestDto updateNameRequestDto
     ) {
-        this.scheduleService.updateName(scheduleId, updateNameRequestDto);
-        return this.scheduleService.updateName(scheduleId);
+        return this.scheduleService.updateName(scheduleId, updateNameRequestDto);
+    }
+
+    @DeleteMapping("/schedules/{scheduleId}")
+    public DeleteScheduleResponseDto deleteSchedule(
+            @PathVariable Long scheduleId
+    ) {
+        return this.scheduleService.deleteSchedule(scheduleId);
     }
 }
