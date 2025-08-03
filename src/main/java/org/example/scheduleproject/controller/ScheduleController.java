@@ -3,6 +3,8 @@ package org.example.scheduleproject.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.scheduleproject.scheduledto.CreateScheduleRequestDto;
 import org.example.scheduleproject.scheduledto.ScheduleResponseDto;
+import org.example.scheduleproject.scheduledto.UpdateNameRequestDto;
+import org.example.scheduleproject.scheduledto.UpdateTitleRequestDto;
 import org.example.scheduleproject.service.ScheduleService;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,5 +33,22 @@ public class ScheduleController {
         else {
             return this.scheduleService.findSchedules(name);
         }
+    }
+
+    @PatchMapping("/schedules/{scheduleId}")
+    public ScheduleResponseDto updateTitle(
+            @PathVariable Long scheduleId,
+            @RequestBody UpdateTitleRequestDto updateTitleRequestDto
+    ) {
+        this.scheduleService.updateTitle(scheduleId, updateTitleRequestDto);
+        return this.scheduleService.updateTitle(scheduleId);
+    }
+    @PatchMapping("/schedules/{scheduleId}")
+    public ScheduleResponseDto updateName(
+            @PathVariable Long scheduleId,
+            @RequestBody UpdateNameRequestDto updateNameRequestDto
+    ) {
+        this.scheduleService.updateName(scheduleId, updateNameRequestDto);
+        return this.scheduleService.updateName(scheduleId);
     }
 }

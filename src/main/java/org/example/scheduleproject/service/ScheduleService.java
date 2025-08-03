@@ -3,8 +3,7 @@ package org.example.scheduleproject.service;
 import lombok.RequiredArgsConstructor;
 import org.example.scheduleproject.entity.Schedule;
 import org.example.scheduleproject.repository.ScheduleRepository;
-import org.example.scheduleproject.scheduledto.CreateScheduleRequestDto;
-import org.example.scheduleproject.scheduledto.ScheduleResponseDto;
+import org.example.scheduleproject.scheduledto.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,5 +37,42 @@ public class ScheduleService {
     public List<ScheduleResponseDto> findSchedules(String name) {
         List<Schedule> schedules =  scheduleRepository.findScheduleByUserNameOrderByModifiedAtDesc(name);
         return schedules.stream().map(ScheduleResponseDto::new).toList();
+    }
+
+    @Transactional
+    public void updateTitle(Long id, UpdateTitleRequestDto updateTitleRequestDto) {
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 id")
+        );
+        schedule.changeTitle(updateTitleRequestDto.getTitle());
+    }
+    @Transactional
+    public ScheduleResponseDto updateTitle(Long id) {
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 id")
+        );
+        return new ScheduleResponseDto(schedule);
+    }
+    @Transactional
+    public void updateName(Long id, UpdateNameRequestDto updateNameRequestDto) {
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 id")
+        );
+        schedule.changeTitle(updateNameRequestDto.getName());
+    }
+    @Transactional
+    public ScheduleResponseDto updateName(Long id) {
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 id")
+        );
+        return new ScheduleResponseDto(schedule);
+    }
+
+    @Transactional
+    public DeleteScheduleResponseDto deleteSchedule(Long id) {
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 id")
+        );
+
     }
 }
