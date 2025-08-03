@@ -16,6 +16,7 @@ public class ScheduleResponseDto {
     private final LocalDateTime updatedAt;
 
     public ScheduleResponseDto(Schedule schedule) {
+
         this.id = schedule.getId();
         this.title = schedule.getTitle();
         this.content = schedule.getContent();
