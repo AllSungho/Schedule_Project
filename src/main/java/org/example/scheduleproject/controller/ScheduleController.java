@@ -13,6 +13,7 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
+    // 일정 생성
     @PostMapping("/schedules")
     public ScheduleResponseDto createSchedule(
             @RequestBody CreateScheduleRequestDto createScheduleRequestDto
@@ -20,6 +21,7 @@ public class ScheduleController {
         return scheduleService.createSchedule(createScheduleRequestDto);
     }
 
+    // 일정 전체 조회 또는 단일 조회
     @GetMapping("/schedules")
     public List<ScheduleResponseDto> findSchedules(
             @RequestParam(name = "name", required = false) String name
@@ -32,6 +34,7 @@ public class ScheduleController {
         }
     }
 
+    // 제목 수정
     @PatchMapping("/schedules/{scheduleId}/titles")
     public ScheduleResponseDto updateTitle(
             @PathVariable Long scheduleId,
@@ -39,6 +42,7 @@ public class ScheduleController {
     ) {
         return this.scheduleService.updateTitle(scheduleId, updateTitleRequestDto);
     }
+    // 이름 수정
     @PatchMapping("/schedules/{scheduleId}/names")
     public ScheduleResponseDto updateName(
             @PathVariable Long scheduleId,
@@ -47,6 +51,7 @@ public class ScheduleController {
         return this.scheduleService.updateName(scheduleId, updateNameRequestDto);
     }
 
+    // 일정 삭제
     @DeleteMapping("/schedules/{scheduleId}")
     public DeleteScheduleResponseDto deleteSchedule(
             @PathVariable Long scheduleId

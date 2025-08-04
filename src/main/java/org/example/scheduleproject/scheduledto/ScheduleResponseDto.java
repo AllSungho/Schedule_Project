@@ -5,6 +5,7 @@ import org.example.scheduleproject.entity.Schedule;
 
 import java.time.LocalDateTime;
 
+// 일정 응답 Dto
 @Getter
 public class ScheduleResponseDto {
 

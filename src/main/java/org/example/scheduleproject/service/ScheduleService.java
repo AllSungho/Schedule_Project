@@ -15,6 +15,7 @@ public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
 
+    // 일정 생성
     @Transactional
     public ScheduleResponseDto createSchedule(CreateScheduleRequestDto createScheduleRequestDto) {
         Schedule schedule = scheduleRepository.save(new Schedule(
@@ -28,17 +29,20 @@ public class ScheduleService {
         return new ScheduleResponseDto(schedule);
     }
 
+    // 일정 전체 조회
     @Transactional(readOnly = true)
     public List<ScheduleResponseDto> findSchedules() {
         List<Schedule> schedules =  scheduleRepository.findAllByOrderByModifiedAtDesc();
         return schedules.stream().map(ScheduleResponseDto::new).toList();
     }
+    // 일정 단일 조회
     @Transactional(readOnly = true)
     public List<ScheduleResponseDto> findSchedules(String name) {
         List<Schedule> schedules =  scheduleRepository.findScheduleByUserNameOrderByModifiedAtDesc(name);
         return schedules.stream().map(ScheduleResponseDto::new).toList();
     }
 
+    // 제목 수정
     @Transactional
     public ScheduleResponseDto updateTitle(Long id, UpdateTitleRequestDto updateTitleRequestDto) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(
@@ -48,6 +52,7 @@ public class ScheduleService {
         scheduleRepository.saveAndFlush(schedule);
         return new ScheduleResponseDto(schedule);
     }
+    // 이름 수정
     @Transactional
     public ScheduleResponseDto updateName(Long id, UpdateNameRequestDto updateNameRequestDto) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(
@@ -58,6 +63,7 @@ public class ScheduleService {
         return new ScheduleResponseDto(schedule);
     }
 
+    // 일정 삭제
     @Transactional
     public DeleteScheduleResponseDto deleteSchedule(Long id) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(

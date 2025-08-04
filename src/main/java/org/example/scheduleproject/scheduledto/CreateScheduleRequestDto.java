@@ -1,8 +1,8 @@
 package org.example.scheduleproject.scheduledto;
 
 import lombok.Getter;
-import org.example.scheduleproject.entity.Schedule;
 
+// 일정 생성 요청 Dto
 @Getter
 public class CreateScheduleRequestDto {
 
